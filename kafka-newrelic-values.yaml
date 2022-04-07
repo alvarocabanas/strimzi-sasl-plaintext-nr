@@ -1,0 +1,27 @@
+newrelic-infrastructure:
+  verboseLog: true
+  integrations_config:
+    - name: nginx-config.yml
+      data:
+        discovery:
+          command:
+            exec: /var/db/newrelic-infra/nri-discovery-kubernetes
+            match:
+              label.statefulset.kubernetes.io/pod-name: strimzi-kafka-kafka-0
+        integrations:
+          - name: nri-kafka
+            env:
+              CLUSTER_NAME: strimzi-kafka
+              AUTODISCOVER_STRATEGY: bootstrap
+              BOOTSTRAP_BROKER_HOST: ${discovery.podName}.strimzi-kafka-kafka-brokers.${discovery.namespace}.svc
+              BOOTSTRAP_BROKER_KAFKA_PORT: 9093
+              BOOTSTRAP_BROKER_KAFKA_PROTOCOL: SASL_PLAINTEXT
+              SASL_MECHANISM: SCRAM-SHA-512
+              SASL_USERNAME: my-user
+              SASL_PASSWORD: <your-my-user-secret-password-base64-decoded>
+              BOOTSTRAP_BROKER_JMX_PORT: 9999
+              METRICS: 1
+              LOCAL_ONLY_COLLECTION: 1
+              COLLECT_BROKER_TOPIC_DATA: true
+              TOPIC_MODE: all
+              COLLECT_TOPIC_SIZE: true
