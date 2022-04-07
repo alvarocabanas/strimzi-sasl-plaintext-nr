@@ -37,7 +37,7 @@ We specify the authorization type and we pass the user we will create as a super
         - my-user
 ```
 
-We are specifying the following so strimzi will create the entityOperator deployment that will be needed to crate the user and password for broker authentication:
+We are specifying the following so strimzi will create the entityOperator deployment that will be needed to create the user and password for broker authentication:
 ```YAML
   entityOperator:
     topicOperator: {}
