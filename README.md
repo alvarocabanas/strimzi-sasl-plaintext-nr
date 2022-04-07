@@ -7,7 +7,7 @@ To install with helm
 
 ```
 $ helm repo add strimzi https://strimzi.io/charts/
-$ helm upgrade strimzi strimzi/strimzi-kafka-operator -n strimzi-kafka
+$ helm upgrade --install strimzi strimzi/strimzi-kafka-operator -n strimzi-kafka
 ```
 
 
